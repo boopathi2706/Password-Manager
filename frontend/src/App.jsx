@@ -24,16 +24,20 @@ const ProtectedRoute = ({ element: Component }) => {
 function App() {
     return (
          <> {/* Use a fragment to wrap the Routes and Toaster */}
-            <Routes>
-                {/* Public Routes */}
+           <Routes>
+                {/* 1. Public Routes: These are rendered immediately */}
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
 
-                {/* Protected Routes */}
-                <Route path="/" element={<ProtectedRoute element={<DashboardPage />} />} />
+                {/* 2. Protected Route: This checks for authentication and will show 
+                       the spinner ONLY if a page is accessed directly during the initial check. */}
+                <Route path="/dashboard" element={<ProtectedRoute element={<DashboardPage />} />} />
+
+                {/* 3. Default Route: Redirect the bare root path to login. */}
+                <Route path="/" element={<Navigate to="/login" replace />} />
                 
-                {/* Catch-all for 404s */}
-                <Route path="*" element={<Navigate to="/" replace />} />
+                {/* 4. Catch-all for 404s */}
+                <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
             
             {/* NEW: Toast Notification Provider */}

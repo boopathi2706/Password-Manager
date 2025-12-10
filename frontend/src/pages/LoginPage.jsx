@@ -23,7 +23,7 @@ const LoginPage = () => {
 
         if (result.success) {
             toast.success('Login Successful! Welcome back.');
-            navigate('/', { replace: true });
+            navigate('/dashboard', { replace: true });
         } else {
             toast.error(result.error);
         }

@@ -28,7 +28,7 @@ const SignupPage = () => {
 
         if (result.success) {
             toast.success(`Password for "${formData.topicName}" saved successfully!`); 
-            navigate('/', { replace: true });
+            navigate('/dashboard', { replace: true });
         } else {
             toast.error(message);
             setError(result.error);
