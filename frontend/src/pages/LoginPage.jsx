@@ -25,7 +25,9 @@ const LoginPage = () => {
             toast.success('Login Successful! Welcome back.');
             navigate('/dashboard', { replace: true });
         } else {
-            toast.error(result.error);
+           
+             const errorMessage = result.error?.response?.data?.message || result.error.message || "An unknown error occurred."
+              toast.error(errorMessage);
         }
     };
 

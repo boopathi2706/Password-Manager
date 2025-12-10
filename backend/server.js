@@ -23,7 +23,7 @@ app.use(helmet());
 
 // 2. CORS Configuration: Allow frontend to communicate (Vite default port 5173)
 const corsOptions = {
-    origin: 'https://password-manager-mu-drab.vercel.app/', 
+    origin: 'https://password-manager-mu-drab.vercel.app', 
     credentials: true, // IMPORTANT: Allows HTTP-only cookies
 };
 app.use(cors(corsOptions));
