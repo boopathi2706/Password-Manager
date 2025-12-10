@@ -182,6 +182,13 @@ const DashboardPage = () => {
                     onPasswordAdded={fetchPasswords} 
                 />
             )}
+             <footer className="w-full py-4 text-right pr-8">
+                <p className="text-sm text-gray-700">
+                    Made by 
+                    <span className="text-black ml-1 mr-1">@</span> 
+                    <span className="text-blue-600 font-medium">boopathi</span>
+                </p>
+            </footer>
         </div>
     );
 };
