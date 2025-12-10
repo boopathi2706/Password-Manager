@@ -13,13 +13,19 @@ const createSendToken = (user, statusCode, res) => {
     // Set the token in an HTTP-only cookie for security
    // backend/controllers/authController.js (Force SECURE: TRUE)
 
+// backend/controllers/authController.js (FINAL COOKIE FIX)
+
 const cookieOptions = {
-    expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-    httpOnly: true,
-    // CRITICAL: Hardcode to true to bypass any NODE_ENV issue
+    expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // e.g., 90 days
+    httpOnly: true, // Required for security
+
+    // 1. MUST BE TRUE for HTTPS (Render)
     secure: true, 
-    sameSite: 'Lax', 
+
+    // 2. CRITICAL FIX: Set to 'None' to allow cross-site cookie transmission
+    sameSite: 'None', 
 };
+
 res.cookie('jwt', token, cookieOptions);
     // Remove sensitive fields before sending response
     user.passwordHash = undefined;
