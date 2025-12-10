@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://password-manager-rwy8.onrender.com/api', // <--- MUST match backend port and /api prefix
+    baseURL: 'https://password-manager-api.onrender.com/api', // <--- MUST match backend port and /api prefix
     withCredentials: true,
 });
 
