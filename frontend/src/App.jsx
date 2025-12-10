@@ -62,7 +62,6 @@ function App() {
                     },
                 }}
             />
-          // This replaces the old footer element in App.jsx
           <footer className="w-full py-4 text-right pr-8 fixed bottom-4 right-4 z-50"> 
                 <p className="text-sm text-gray-700">
                     Made by 
