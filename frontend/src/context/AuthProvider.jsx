@@ -15,6 +15,9 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     // Function to handle both signup and login
+    // frontend/src/context/AuthProvider.jsx (Only the updated handleAuth function)
+
+    // Function to handle both signup and login
     const handleAuth = async (endpoint, data) => {
         try {
             setLoading(true);
@@ -28,8 +31,11 @@ export const AuthProvider = ({ children }) => {
 
         } catch (err) {
             setLoading(false);
-            const message = err.response?.data?.message || 'Authentication failed.';
-            return { success: false, error: message };
+            
+            // CRITICAL FIX: Instead of returning just a string, 
+            // return the full error object (err) received from Axios.
+            // This allows LoginPage/SignupPage to safely access err.response?.data?.message
+            return { success: false, error: err }; 
         }
     };
 

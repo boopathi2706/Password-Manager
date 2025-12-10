@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
-    const [error, setError] = useState(null);
+    // FIX 1: Removed redundant local error state: const [error, setError] = useState(null);
     const { login, loading } = useAuth();
     const navigate = useNavigate();
 
@@ -18,22 +18,28 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(null);
+        // FIX 2: Removed unnecessary state cleanup: setError(null);
+        
         const result = await login(formData);
 
         if (result.success) {
             toast.success('Login Successful! Welcome back.');
             navigate('/dashboard', { replace: true });
         } else {
-           
-             const errorMessage = result.error?.response?.data?.message || result.error.message || "An unknown error occurred."
-              toast.error(errorMessage);
+            // FIX 3: Safely define the error message and call toast.
+            const errorMessage = result.error?.response?.data?.message || 
+                                 result.error?.message || 
+                                 "Login failed due to an unknown error.";
+                                 
+            toast.error(errorMessage);
+            // FIX 4: Removed the line setError(result.error);
         }
     };
 
     return (
         <AuthForm title="Secure Login" onSubmit={handleSubmit}>
-            {error && <p className="text-red-600 text-center font-medium">{error}</p>}
+            {/* FIX 5: Removed the display of the redundant local error state */}
+            {/* {error && <p className="text-red-600 text-center font-medium">{error}</p>} */}
             
             <InputField 
                 label="Username" 
@@ -55,7 +61,7 @@ const LoginPage = () => {
             <div>
                 <button
                     type="submit"
-    
+                    disabled={loading} // Use loading state to disable the button
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all-ease"
                 >
                     {loading ? 'Logging In...' : 'Log In'}
